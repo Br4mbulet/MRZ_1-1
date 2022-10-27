@@ -105,8 +105,9 @@ def training(X):
             w1 = update_weights_for_first_layer(w1, w2, X[i], delta_Xi)
             w2 = update_weights_for_second_layer(w2, Yi, delta_Xi)
 
-            w1 = normalize_weights(w1)
-            w2 = normalize_weights(w2)
+            if shouldNormalize:
+                w1 = normalize_weights(w1)
+                w2 = normalize_weights(w2)
 
             errors[i] = (delta_Xi ** 2).sum()
         sum_error = np.sum(errors)
@@ -135,6 +136,9 @@ print('Enter number of columns in rectangle (n)')
 rectangle_width = int(input())
 print('Enter number of neurals on the first layer (p)')
 p = int(input()) #number of neurons on the second layer
+print('Choose how to train: 1 - with normalization, 0 - without normalization')
+shouldNormalize = bool(int(input()))
+print(shouldNormalize)
 
 image = Image.open('doge.png', 'r')
 image_pixels = image.load()
